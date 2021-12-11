@@ -1,82 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
+<head><%@ page isELIgnored="false"%>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Students</title>
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 <body>
-
 	<div class="container">
-		<h3>Students</h3>
-		<hr>
+		<div class="col-md-offset-1 col-md-10">
+			<h2>Student Registration</h2>
+			<hr />
 
-		<!-- Add a search form -->
-		<form action="/Nikhil-Spring_MVCLabSolStudents/students/search"
-			class="form-inline">
+			<input type="button" value="Add Student"
+				onclick="window.location.href='showForm'; return false;"
+				class="btn btn-primary" /> <br />
+			<br />
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">Student List</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<th>Name</th>
+							<th>Department</th>
+							<th>Country</th>
+							<th>Action</th>
+						</tr>
 
-			<!-- Add a button -->
-			<a href="/Nikhil-Spring_MVCLabSolStudents/students/addstudent"
-				class="btn btn-primary btn-sm mb-3"> Add Student </a> <input
-				type="search" name="name" placeholder="Name"
-				class="form-control-sm ml-5 mr-2 mb-3" /> 
-			<input type="search"
-				name="author" placeholder="Author" class="form-control-sm mr-2 mb-3" />
+						<!-- Iterate and Display Students -->
+						<c:forEach var="tempStudent" items="${students}">
 
-			<button type="submit" class="btn btn-success btn-sm mb-3">Search</button>
 
-		</form>
+							<c:url var="updateLink" value="/students/updateForm">
+								<c:param name="id" value="${tempStudent.id}" />
+							</c:url>
 
-		<table class="table table-bordered table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Name</th>
-					<th>Department</th>
-					<th>Country</th>
-					<th>Action</th>
-				</tr>
-			</thead>
+							<!-- construct an "delete" link with customer id -->
+							<c:url var="deleteLink" value="/students/delete">
+								<c:param name="id" value="${tempStudent.id}" />
+							</c:url>
 
-			<tbody>
-				<c:forEach items="${studentsList}" var="temp">
-					<tr>
-						<td><c:out value="${temp.name}" /></td>
-						<td><c:out value="${temp.department}" /></td>
-						<td><c:out value="${temp.country}" /></td>
-						<td>
-							<!-- Add "update" button/link --> <a
-							href="/Nikhil-Spring_MVCLabSolStudents/students/updatestudent?id=${temp.id}"
-							class="btn btn-info btn-sm"> Update </a> <!-- Add "delete" button/link -->
-							<a
-							href="/Nikhil-Spring_MVCLabSolStudents/students/delete?id=${temp.id}"
-							class="btn btn-danger btn-sm"
-							onclick="if (!(confirm('Are you sure you want to delete this Student?'))) return false">
-								Delete </a>
+							<tr>
+								<td>${tempStudent.name}</td>
+								<td>${tempStudent.department}</td>
+								<td>${tempStudent.country}</td>
 
-						</td>
+								<td>
+									<!-- display the update link --> <a href="${updateLink}">Update</a>
+									| <a href="${deleteLink}"
+									onclick="if (!(confirm('Are you sure you want to delete this Student?'))) return false">Delete</a>
+								</td>
 
-					</tr>
-				</c:forEach>
+							</tr>
 
-			</tbody>
-		</table>
+						</c:forEach>
+
+					</table>
+
+				</div>
+			</div>
+		</div>
 
 	</div>
-
 </body>
 </html>
-
-
-

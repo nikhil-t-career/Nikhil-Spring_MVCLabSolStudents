@@ -1,49 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="ISO-8859-1">
+<title>Add Student Details</title>
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
-<title>Save Student</title>
 </head>
 <body>
 	<div class="container">
-		<h3>Students</h3>
-		<hr>
-		<p class="h4 mb-4">Save Student</p>
-		<form action="/Nikhil-Spring_MVCLabSolStudents/students/save" method="POST">
-			<!-- Add hidden form field to handle update -->
-			<input type="hidden" name="id" value="${student.id}" />
+		<div class="col-md-offset-2 col-md-7">
+			<h2 class="text-center">Student Details</h2>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">Add Student</div>
+				</div>
+				<div class="panel-body">
+					<form:form action="saveStudent" cssClass="form-horizontal"
+						method="post" modelAttribute="student">
 
-			<div class="form-inline">
-				<input type="text" name="name" value="${student.name}"
-					class="form-control mb-4 col-4" placeholder="Name">
+						<!-- need to associate this data with customer id -->
+						<form:hidden path="id" />
+
+						<div class="form-group">
+							<label for="name" class="col-md-3 control-label">Name</label>
+							<div class="col-md-9">
+								<form:input path="name" cssClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="department" class="col-md-3 control-label">Department</label>
+							<div class="col-md-9">
+								<form:input path="department" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="country" class="col-md-3 control-label">Country</label>
+							<div class="col-md-9">
+								<form:input path="country" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<!-- Button -->
+							<div class="col-md-offset-3 col-md-9">
+								<form:button cssClass="btn btn-primary">Submit</form:button>
+							</div>
+						</div>
+
+					</form:form>
+				</div>
 			</div>
-			<div class="form-inline">
-				<input type="text" name="department" value="${student.department}"
-					class="form-control mb-4 col-4" placeholder="Department">
-			</div>
-			<div class="form-inline">
-				<input type="text" name="country" value="${student.country}"
-					class="form-control mb-4 col-4" placeholder="Country">
-			</div>
-			<button type="submit" class="btn btn-info col-2">Save</button>
-		</form>
-		<hr>
-		<a href="/Nikhil-Spring_MVCLabSolStudents/students/list">Back to Students List</a>
+		</div>
 	</div>
 </body>
-
 </html>

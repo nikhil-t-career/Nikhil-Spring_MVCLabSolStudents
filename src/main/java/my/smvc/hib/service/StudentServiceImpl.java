@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import my.smvc.hib.dao.StudentDaoImpl;
+import my.smvc.hib.dao.StudentDao;
 import my.smvc.hib.entity.Student;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
-    private StudentDaoImpl studentDaoImpl;
+    private StudentDao studentDaoImpl;
 
     @Override
     @Transactional
