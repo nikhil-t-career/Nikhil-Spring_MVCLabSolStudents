@@ -25,7 +25,7 @@
 					<form:form action="saveStudent" cssClass="form-horizontal"
 						method="post" modelAttribute="student">
 
-						<!-- need to associate this data with customer id -->
+						<!-- need to associate this data with student id -->
 						<form:hidden path="id" />
 
 						<div class="form-group">
